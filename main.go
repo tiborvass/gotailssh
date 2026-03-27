@@ -21,9 +21,17 @@ func main() {
 	if authKey == "" {
 		log.Fatal("TS_AUTHKEY env var is required")
 	}
+	authorized := os.Getenv("SSH_AUTHORIZED_KEY")
+	if authorized == "" {
+		log.Fatal("SSH_AUTHORIZED_KEY env var is required")
+	}
+	hostname := "gotailssh"
+	if len(os.Args) > 1 {
+		hostname = os.Args[1]
+	}
 
 	s := &tsnet.Server{
-		Hostname: "go-ssh-proxy", // shows up in your Tailnet
+		Hostname: hostname,       // shows up in your Tailnet
 		AuthKey:  authKey,
 		Ephemeral: true,          // auto-cleanup when offline
 		Dir:       "./state",     // or tmp; persistent if you want reuse
@@ -47,10 +55,6 @@ func main() {
 	}
 	config := &ssh.ServerConfig{
 		PublicKeyCallback: func(conn ssh.ConnMetadata, key ssh.PublicKey) (*ssh.Permissions, error) {
-			authorized := os.Getenv("SSH_AUTHORIZED_KEY")
-			if authorized == "" {
-				return nil, fmt.Errorf("SSH_AUTHORIZED_KEY env var is required")
-			}
 			parsedKey, _, _, _, err := ssh.ParseAuthorizedKey([]byte(authorized))
 			if err != nil {
 				return nil, fmt.Errorf("failed to parse authorized key: %v", err)
