@@ -25,7 +25,7 @@ func main() {
 	if authorized == "" {
 		log.Fatal("SSH_AUTHORIZED_KEY env var is required")
 	}
-	hostname := "gotailssh"
+	hostname := "tailsshd"
 	if len(os.Args) > 1 {
 		hostname = os.Args[1]
 	}

@@ -1,4 +1,4 @@
-module github.com/mox/go-ssh-proxy
+module github.com/tiborvass/tailsshd
 
 go 1.23
 

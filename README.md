@@ -1,6 +1,6 @@
-# Go SSH Proxy via Tailscale
+# Go SSH server via Tailscale
 
-This project implements an SSH proxy server that runs over a Tailnet using Tailscale's [`tsnet`](https://pkg.go.dev/tailscale.com/tsnet) package. It creates an ephemeral SSH server which accepts SSH connections and spawns a shell session inside a pseudo-terminal.
+This project implements an SSH server that runs over a Tailnet using Tailscale's [`tsnet`](https://pkg.go.dev/tailscale.com/tsnet) package. It creates an ephemeral SSH server which accepts SSH connections and spawns a shell session inside a pseudo-terminal.
 
 ## Overview
 
